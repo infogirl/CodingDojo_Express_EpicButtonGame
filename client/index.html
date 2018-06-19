@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA_Compatible" content="ie-edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Coding Dojo Epic Button Game Assignment</title>
+
+    <script>
+      $(document).ready(function(){
+        var socket = io.connect();
+
+        socket.on('numberUpdated', function(number){
+          $('#number').text(number);
+        });
+
+        $('#epic').click(function(){
+          socket.emit('buttonClicked');
+        });
+
+        $('#reset').click(function(){
+          socket.emit('reset');
+        });
+      });
+    </script>
+
+  </head>
+  
+  <body class = "container">
+    <h1>Epic Button Game</h1>
+    <h3> The Button has been pressed <span id="number">0</span> times </h3>
+
+    <div>
+      <p>Push the button to update the count</p>
+      <button class = "btn btn-primary" id="epic">HIT ME!</button>
+    </div>
+
+    <button class = "btn btn-primary pull-right" id="reset">Reset</button>
+  </body>
+</html>
